@@ -11,7 +11,7 @@ export class Home extends Component {
     posts : [],
     allPosts: [],
     page: 0,
-    postsPerPage: 2
+    postsPerPage: 53
   }
 
   async componentDidMount() {
@@ -46,15 +46,26 @@ export class Home extends Component {
 
   render() {
 
-    const { posts } = this.state;
+    const { posts, page, postsPerPage, allPosts } = this.state
+    const noMorePosts =  page + postsPerPage >= allPosts.length
 
     return (
       <section className="container">
+        <input
+          onChange={(e) => console.log(e.target.value)}
+          type="search" 
+          
+          /><br /><br /><br />
+
         <Posts posts={posts} />
-        <Button
-          text="Load More Posts"
-          onClick={this.loadMorePosts}
-        />
+
+        <div className="button-container">
+          <Button
+            text="Load More Posts"
+            onClick={this.loadMorePosts}
+            disable={noMorePosts}
+          />
+        </div>
       </section>
     );
   }
